@@ -32,7 +32,7 @@ def predict():
         base64_image = base64.b64encode(image_data).decode('utf-8')
         
         # Create vision API request
-        MODEL = "llama-3.2-90b-vision-preview"
+        MODEL = "llama-3.2-11b-vision-preview"
         
         print(f"🤖 analyzing image with {MODEL}...")
         
@@ -102,8 +102,13 @@ Please ensure the JSON is valid and keys match exactly.
         })
         
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"❌ Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        error_msg = str(e)
+        if "Connection error" in error_msg:
+             error_msg += " (Check GROQ_API_KEY or network)"
+        return jsonify({"error": error_msg}), 500
 
 # Ensure temp directory exists
 os.makedirs('static/temp', exist_ok=True)

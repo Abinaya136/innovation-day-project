@@ -179,7 +179,12 @@ def predict():
             "heatmap": "/static/temp/heatmap.png"
         })
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        traceback.print_exc()
+        error_msg = str(e)
+        if "Connection error" in error_msg:
+             error_msg += " (Check GROQ_API_KEY or network)"
+        return jsonify({"error": error_msg}), 500
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
