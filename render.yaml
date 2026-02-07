@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: leafcare-disease-detector
+    env: python
+    buildCommand: pip install -r requirements_simple.txt
+    startCommand: gunicorn app_groq_only:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0

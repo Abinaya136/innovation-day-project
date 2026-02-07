@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+deployed_url.txt
+deploy.txt
+deployment.log
+static/temp/
+models/
+.git/
